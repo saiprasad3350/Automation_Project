@@ -1,5 +1,6 @@
 # Automation_Project
 
+
 Task 2: 
 
 This is an automation project that executes a series of bash and shell script to install and configure apache server on EC2 instanace and copy the tar file of 

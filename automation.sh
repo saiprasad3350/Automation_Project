@@ -25,6 +25,29 @@ sudo apt install awscli
 myname=upgrad-saiprasad
 s3_bucket=upgrad-saiprasad
 timestamp=$(date '+%d%m%Y-%H%M%S')
+echo $myname
+echo $timestamp
+echo $s3_bucket
 tar cvf $myname-httpd-logs-$timestamp.tar --absolute-names  /var/log/apache2
 cp $myname-httpd-logs-$timestamp.tar /tmp/
 aws s3 cp /tmp/${myname}-httpd-logs-${timestamp}.tar s3://${s3_bucket}/${myname}-httpd-logs-${timestamp}.tar
+
+
+task 3
+# tocheck if cronjob is there and create
+crnjob=/etc/cron.d/automation
+if [ ! -f "$crnjob" ]; then
+    touch $crnjob
+    echo "0 1 * * * root /root/Automation_Project/automation.sh" >> $crnjob
+else
+    echo "$crnjob exists."
+fi
+
+# tocheck if inventory is there and create
+FILE=/var/www/html/inventory.html
+if [ ! -f "$FILE" ]; then
+    touch $FILE
+    echo -ne "LogType Time Created Type Size" > $FILE
+else
+    echo "$FILE already exist."
+fi
